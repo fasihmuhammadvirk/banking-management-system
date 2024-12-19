@@ -15,8 +15,8 @@ def greet(request):
 
 
 def login_view(request):
-    context = dict()
 
+    # if the user is already authenticated
     if request.user.is_authenticated:
         return redirect('accounts')
 
@@ -25,22 +25,16 @@ def login_view(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        try:
-            user = User.objects.get(username=username)
-        except:
-            mymessage = ["User doesnot exit"]
-            context['messages'] = mymessage
-            return render(request, 'banking/loginpage.html', context)
+        is_user_autheticated = authenticate(request, username=username, password=password)
 
-        user = authenticate(request, username=username, password=password)
-
-        if user is not None:
-            login(request, user)
+        if is_user_autheticated is not None:
+            login(request, is_user_autheticated)
             return redirect('accounts')
-        else:
-            messages.error(request, 'Incorrect Email or Password')
 
-    return render(request, 'banking/loginpage.html', context)
+        else:
+            messages.error(request, 'Please Try Again there something went wrong with you login')
+
+    return render(request, 'banking/loginpage.html')
 
 def logout_view(request):
     logout(request)
