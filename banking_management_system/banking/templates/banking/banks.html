@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+{% for bank in all_banks%}
+<p>{{bank.name}}</p>
+<p>{{bank.branch}}</p>
+{%if bank.is_islamic %}
+<p>Islamic Bank</p>
+{%else%}
+<p>Not Islamic Bank</p>
+{% endif %}
+<p>{{bank.created_at}}</p>
+<hr>
+{% endfor %}
+
+{% endblock %}
