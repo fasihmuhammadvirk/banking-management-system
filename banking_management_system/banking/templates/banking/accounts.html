@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+{% for account in all_accounts%}
+
+<p>{{account.user}}</p>
+<p>{{account.bank.name}}</p>
+<p>{{account.account_number}}</p>
+<p>{{account.balance}}</p>
+<hr>
+{% endfor %}
+
+{% endblock %}
