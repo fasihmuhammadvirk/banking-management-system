@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render , redirect
-from .models import User
+from .models import User, Account
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
@@ -45,4 +45,11 @@ def bank_view(request):
 
 @login_required
 def account_view(request):
-    return render(request, 'banking/greet.html')
+
+    context = dict()
+
+    user_account = Account.objects.all()
+
+    context['all_accounts'] = user_account
+
+    return render(request, 'banking/accounts.html',context)
