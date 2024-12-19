@@ -1,0 +1,10 @@
+{% block content %}
+
+<h3>Hello {{user.username}}</h3>
+
+<a href="{% url 'banks' %}">Check List of all Banks</a>
+<br>
+<a href="{% url 'accounts' %}">Check List of your accounts and their details</a>
+<br>
+
+{% endblock %}
