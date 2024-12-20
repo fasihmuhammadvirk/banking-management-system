@@ -1,39 +1,39 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render , redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
+
 @login_required
-def home(request):
-    user = request.user
+def user_dashboard(request):
+    current_user = request.user
     context = {
-        'user':user
+        'username': current_user.username.upper()
     }
-    return render(request, 'user/home.html',context)
+    return render(request, 'user/dashboard.html', context)
+
 
 # Create your views here.
-def login_view(request):
-
-    # if the user is already authenticated
+def user_login_view(request):
+    # checking if the user is already authenticated
     if request.user.is_authenticated:
         return redirect('home')
 
     if request.method == 'POST':
 
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        entered_username = request.POST.get('username')
+        entered_password = request.POST.get('password')
+        is_user_authenticated = authenticate(request, username=entered_username, password=entered_password)
 
-        is_user_autheticated = authenticate(request, username=username, password=password)
-
-        if is_user_autheticated is not None:
-            login(request, is_user_autheticated)
+        if is_user_authenticated:
+            login(request, is_user_authenticated)
             return redirect('home')
-
         else:
             messages.error(request, 'Please Try Again there something went wrong with you login')
 
-    return render(request, 'user/loginpage.html')
+    return render(request, 'user/login_page.html')
 
-def logout_view(request):
+
+def user_logout_view(request):
     logout(request)
     return redirect('login')

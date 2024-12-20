@@ -1,11 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from .models import Account
-# Create your views here.
 
-def account_view(request):
 
+@login_required
+def get_user_account_list(request):
     context = dict()
-    user_account = Account.objects.filter(user = request.user)
-    context['all_accounts'] = user_account
+    user_account_list = Account.objects.filter(user=request.user)  # because we need all user information
+    context['user_account_list'] = user_account_list
 
-    return render(request, 'account/accounts.html',context)
+    return render(request, 'account/user_account_list.html', context)

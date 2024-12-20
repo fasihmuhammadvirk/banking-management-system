@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="list-container">
+    
+    {% if user_account_list %}
+    {% for account in user_account_list%}
+    <div class="list">
+        <p><strong>Name:</strong> {{account.user}}</p>
+        <p><strong>Bank Name</strong> {{account.bank.name}}</p>
+        <p><strong>Account Number</strong> {{account.account_number}}</p>
+        <p><strong>Balance</strong> {{account.balance}}</p>
+        <a class ="btn btn--main" href="{% url 'user_transactions' %}?q={{account.account_number}}">Show Transaction</a>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="list-message">
+        <p>No account details to show</p>
+    </div>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}

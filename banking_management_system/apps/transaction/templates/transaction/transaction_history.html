@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="list-container">
+    
+    {% if all_user_transaction%}
+    <div class="list">
+        <h2>Transaction History</h2>
+        {% for transaction in all_user_transaction%}
+        <p> <strong>Name:</strong> {{transaction.account.user}}</p>
+        <p> <strong>Amount:</strong> {{transaction.amount}}</p>
+        <p> <strong>Transaction at:</strong> {{transaction.timestamp}}</p>
+        <p> <strong>Transaction Type:</strong> {{transaction.transaction_type}}</p>
+        <hr>
+        {%endfor%}
+    </div>
+    {%else%}
+    <div class="list-message">
+        <p>No Transactions history till now</p>
+    
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="dashboard-container">
+    
+    <div class="dashboard-heading">
+        <h3>HELLO, {{username}}</h3>
+        <p>Here is a list of thins you can do</p>
+    </div>
+    
+    <div class="dashboard-list">
+        <a class="btn btn--main" href="{% url 'bank_list' %}">Check list of all Banks and their detials</a>
+        <a class="btn btn--main" href="{% url 'user_account_list' %}">Check list of your Accounts and their details</a>
+    </div>
+    
+</div>
+{% endblock %}

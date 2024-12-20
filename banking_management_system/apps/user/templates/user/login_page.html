@@ -1,0 +1,39 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<div class="login-conatiner">
+    <form class="login-form" action="" method="POST">
+        
+        {% csrf_token %}
+        
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        
+        <div class="form__group">
+            <label for="username">Username</label>
+            <input
+                    id="username"
+                    name="username"
+                    type="text"
+                    placeholder="Enter your username"
+            />
+        </div>
+        <div class="form__group">
+            <label for="password">Password</label>
+            <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+            />
+        </div>
+        
+        <button class="btn btn--main" type="submit">Login</button>
+    </form>
+
+</div>
+{% endblock %}

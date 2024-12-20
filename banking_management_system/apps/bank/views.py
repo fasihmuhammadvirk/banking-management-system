@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render , redirect
+from django.shortcuts import render
 from .models import Bank
 
+
 @login_required
-def bank_view(request):
-
+def get_bank_list(request):
     context = dict()
-    user_account = Bank.objects.all()
-    context['all_banks'] = user_account
-
-    return render(request, 'bank/banks.html',context)
+    bank_object_list = Bank.objects.all()
+    context['bank_list'] = bank_object_list
+    return render(request, 'bank/bank_list.html', context)

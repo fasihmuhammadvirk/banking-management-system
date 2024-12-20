@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="list-container">
+    
+    {% if bank_list %}
+    <div class="list">
+        <h2>List of all Banks</h2>
+        <hr>
+        {% for bank in bank_list%}
+        <p><strong>Bank Name:</strong> {{bank.name}}</p>
+        <p><strong>Branch:</strong> {{bank.branch}}</p>
+        {%if bank.is_islamic %}
+        <p><strong>Type:</strong> Islamic Bank</p>
+        {%else%}
+        <p><strong>Type:</strong> Not Islamic Bank</p>
+        {% endif %}
+        <p><strong>Opened on:</strong> {{bank.created_at}}</p>
+        <hr>
+        {% endfor %}
+    </div>
+    {%else%}
+    <div class="list-message">
+        <p>No Bank Information to Show</p>
+    </div>
+    {%endif%}
+
+
+</div>
+
+
+{% endblock %}
