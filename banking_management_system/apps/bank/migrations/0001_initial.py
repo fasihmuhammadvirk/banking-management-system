@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('account_number', models.CharField(max_length=20, unique=True)),
                 ('balance', models.DecimalField(decimal_places=2, default=0.0, max_digits=12)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user', to=settings.AUTH_USER_MODEL)),
-                ('bank', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bank', to='banking.bank')),
+                ('bank', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bank', to='bank.bank')),
             ],
         ),
         migrations.CreateModel(
@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
                 ('amount', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('transaction_type', models.CharField(choices=[('Deposit', 'Deposit'), ('Withdrawal', 'Withdrawal')], max_length=10)),
                 ('timestamp', models.DateTimeField(auto_now_add=True)),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='account', to='banking.account')),
+                ('account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='account', to='bank.account')),
             ],
         ),
     ]
