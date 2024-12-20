@@ -7,7 +7,7 @@ def home(request):
     context = {
         'user':user
     }
-    return render(request, 'user/home.html' )
+    return render(request, 'user/home.html',context)
 
 # Create your views here.
 def login_view(request):
