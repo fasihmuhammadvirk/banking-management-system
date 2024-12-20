@@ -1,0 +1,16 @@
+{% block content %}
+
+{% for account in all_accounts%}
+{% if account %}
+<p>{{account.user}}</p>
+<p>{{account.bank.name}}</p>
+<p>{{account.account_number}}</p>
+<p>{{account.balance}}</p>
+<a href = "{% url 'user_transactions' %}?q={{account.account_number}}">Do Transaction</a>
+<hr>
+{% else %}
+<p>No account deatils to show</p>
+{% endif %}
+{% endfor %}
+
+{% endblock %}
