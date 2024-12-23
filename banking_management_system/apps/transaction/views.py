@@ -1,10 +1,8 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from ..account.models import Account
 from .models import Transaction
 
-
-# Create your views here.
 
 @login_required
 def show_all_transaction(request):
@@ -18,6 +16,7 @@ def show_all_transaction(request):
 
     return render(request, 'transaction/transaction_history.html', context)
 
+
 @login_required
 def make_transaction(request):
     context = dict()
@@ -29,19 +28,21 @@ def make_transaction(request):
         user_information = Account.objects.filter(account_number=account_number_from_query).first()
 
         Transaction.objects.create(
-            account = user_information,
-            amount = amount_user_entered,
-            transaction_type = transaction_type_user_select,
+            account=user_information,
+            amount=amount_user_entered,
+            transaction_type=transaction_type_user_select,
         )
 
         if transaction_type_user_select == "Withdrawal" and amount_user_entered < user_information.balance:
             user_information.balance -= amount_user_entered
-            context['messages'] = [f"You have Withdrawal { amount_user_entered} "
-                                  f"your current balance is {user_information.balance}"]
-        elif transaction_type_user_select  == "Deposit":
+            context['messages'] = [f"You have Withdrawal {amount_user_entered} "
+                                   f"your current balance is {user_information.balance}"]
+
+        elif transaction_type_user_select == "Deposit":
             user_information.balance += amount_user_entered
             context['messages'] = [f"You have Deposit {amount_user_entered} "
-                                  f"your current balance is {user_information.balance}"]
+                                   f"your current balance is {user_information.balance}"]
+
         else:
             context['messages'] = ["Please enter a correct amount"]
 

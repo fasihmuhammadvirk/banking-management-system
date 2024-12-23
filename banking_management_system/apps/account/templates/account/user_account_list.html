@@ -5,28 +5,23 @@
     
     {% if user_account_list %}
     
-    {% if messages%}
-    {% for message in messages%}
-    <div class="list-message">
-        <p>{{message}}</p>
-    </div>
-    {%endfor%}
-    {% endif%}
-    
     <div class="list">
         <a class="btn btn--main" href="{% url 'dashboard' %}">Back</a>
     </div>
     
-    {% for account in user_account_list%}
+    
     <div class="list">
+        <h2>List of all your accounts</h2>
+        <hr>
+    {% for account in user_account_list%}
         <p><strong>Name:</strong> {{account.user}}</p>
         <p><strong>Bank Name</strong> {{account.bank.name}}</p>
         <p><strong>Account Number</strong> {{account.account_number}}</p>
         <p><strong>Balance</strong> {{account.balance}}</p>
-        <a class="btn btn--main" href="{% url 'user_transactions' %}?q={{account.account_number}}">Show Transaction</a>
+        <a class="btn btn--main" href="{% url 'user_transactions' %}?q={{account.account_number}}">Transaction History</a>
         <a class="btn btn--main" href="{% url 'make_transaction' %}?q={{account.account_number}}">Do Transaction</a>
-    </div>
     {% endfor %}
+    </div>
     
     {% else %}
     <div class="list-message">
@@ -35,6 +30,5 @@
     {% endif %}
 
 </div>
-
 
 {% endblock %}
