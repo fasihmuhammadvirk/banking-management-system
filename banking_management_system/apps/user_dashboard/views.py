@@ -10,14 +10,14 @@ def user_dashboard(request):
     context = {
         'username': current_user.username.upper()
     }
-    return render(request, 'user/dashboard.html', context)
+    return render(request, 'user_dashboard/dashboard.html', context)
 
 
 # Create your views here.
 def user_login_view(request):
     # checking if the user is already authenticated
     if request.user.is_authenticated:
-        return redirect('home')
+        return redirect('dashboard')
 
     if request.method == 'POST':
 
@@ -27,11 +27,11 @@ def user_login_view(request):
 
         if is_user_authenticated:
             login(request, is_user_authenticated)
-            return redirect('home')
+            return redirect('dashboard')
         else:
             messages.error(request, 'Please Try Again there something went wrong with you login')
 
-    return render(request, 'user/login_page.html')
+    return render(request, 'user_dashboard/login_page.html')
 
 
 def user_logout_view(request):

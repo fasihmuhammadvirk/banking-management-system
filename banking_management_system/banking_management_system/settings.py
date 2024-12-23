@@ -29,7 +29,7 @@ PROJECT_APPS = [
     'apps.bank',
     'apps.account',
     'apps.transaction',
-    'apps.user',
+    'apps.user_dashboard',
 ]
 
 INSTALLED_APPS = PREDEFINED_APPS + PROJECT_APPS
