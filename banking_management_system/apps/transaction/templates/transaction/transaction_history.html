@@ -1,24 +1,26 @@
 {% extends 'index.html' %}
 
 {% block content %}
-
 <div class="list-container">
-    
+    {% load tz %}
     {% if all_user_transaction%}
+    <div class="list">
+        <a class="btn btn--main" href="{{request.META.HTTP_REFERER}}">Back</a>
+    </div>
     <div class="list">
         <h2>Transaction History</h2>
         {% for transaction in all_user_transaction%}
-        <p> <strong>Name:</strong> {{transaction.account.user}}</p>
-        <p> <strong>Amount:</strong> {{transaction.amount}}</p>
-        <p> <strong>Transaction at:</strong> {{transaction.timestamp}}</p>
-        <p> <strong>Transaction Type:</strong> {{transaction.transaction_type}}</p>
+        <p><strong>Name:</strong> {{transaction.account.user}}</p>
+        <p><strong>Amount:</strong> {{transaction.amount}}</p>
+        <p><strong>Transaction at:</strong> {{transaction.timestamp|date:"Y-m-d h:i:s A T" }}</p>
+        <p><strong>Transaction Type:</strong> {{transaction.transaction_type}}</p>
         <hr>
         {%endfor%}
     </div>
     {%else%}
     <div class="list-message">
         <p>No Transactions history till now</p>
-    
+        <a class="btn btn--main" href="{{request.META.HTTP_REFERER}}">Back</a>
     </div>
     {% endif %}
 

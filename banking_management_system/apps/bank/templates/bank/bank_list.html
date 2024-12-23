@@ -5,6 +5,9 @@
     
     {% if bank_list %}
     <div class="list">
+        <a class="btn btn--main" href="{% url 'dashboard' %}">Back</a>
+    </div>
+    <div class="list">
         <h2>List of all Banks</h2>
         <hr>
         {% for bank in bank_list%}
@@ -21,6 +24,9 @@
     </div>
     {%else%}
     <div class="list-message">
+        <div class="list">
+            <a class="btn btn--main" href="{% url 'dashboard' %}">Back</a>
+        </div>
         <p>No Bank Information to Show</p>
     </div>
     {%endif%}
