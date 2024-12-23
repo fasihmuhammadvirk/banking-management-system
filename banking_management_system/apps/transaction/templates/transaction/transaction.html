@@ -1,0 +1,31 @@
+{% block content %}
+
+
+{% if not transaction%}
+<p>No Transactions till now</p>
+
+{%else%}
+<h3>Transaction History</h3>
+{% for tan in transaction%}
+<p>{{tan.account.user}}</p>
+<p>{{tan.amount}}</p>
+<p>{{tan.timestamp}}</p>
+<p>{{tan.transaction_type}}</p>
+
+<hr>
+{%endfor%}
+
+<h3>Do Transaction</h3>
+
+<select name="transaction-type">
+
+
+</select>
+
+
+
+
+{% endif %}
+
+
+{% endblock %}
