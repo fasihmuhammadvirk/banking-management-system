@@ -1,13 +1,15 @@
 {%block content %}
-
-{% if request.user.is_authenticated %}
-    <div class="navbar">
+<div class="navbar">
+    {% if request.user.is_authenticated %}
+    <div class="heading">
         <h2>Banking Management System</h2>
+        <a class="btn btn--main" href="{% url 'logout' %}">Logout</a>
     </div>
-{% else %}
-    <div class="navbar">
+    
+    {% else %}
+    <div class="heading">
         <h2>Login</h2>
     </div>
-{% endif %}
-
+    {% endif %}
+</div>
 {%endblock%}
