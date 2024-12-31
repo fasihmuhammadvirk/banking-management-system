@@ -20,7 +20,7 @@
     {%else%}
     <div class="list-message">
         <p>No Transactions history till now</p>
-        <a class="btn btn--main" href="{{request.META.HTTP_REFERER}}">Back</a>
+        <a class="btn btn--main" href="{% url 'accounts' %}">Back</a>
     </div>
     {% endif %}
 

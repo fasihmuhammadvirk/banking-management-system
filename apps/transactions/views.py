@@ -7,7 +7,7 @@ from .models import Transaction
 @login_required
 def show_all_transaction(request):
     context = dict()
-    account_number_from_query = request.GET.get('q')
+    account_number_from_query = request.GET.get('account_number')
 
     if account_number_from_query:
         user_information = Account.objects.filter(account_number=account_number_from_query).first()
@@ -20,7 +20,7 @@ def show_all_transaction(request):
 @login_required
 def make_transaction(request):
     context = dict()
-    account_number_from_query = request.GET.get('q')
+    account_number_from_query = request.GET.get('account_number')
 
     if request.method == "POST" and account_number_from_query:
         amount_user_entered = int(request.POST.get('amount'))

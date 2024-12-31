@@ -5,7 +5,8 @@ from .models import Bank
 
 @login_required
 def get_bank_list(request):
-    context = dict()
     bank_object_list = Bank.objects.all()
-    context['bank_list'] = bank_object_list
+    context = {
+        'bank_list': bank_object_list
+    }
     return render(request, 'banks/bank_list.html', context)
