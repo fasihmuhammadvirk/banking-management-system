@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from ..account.models import Account
+from ..accounts.models import Account
 from .models import Transaction
 
 

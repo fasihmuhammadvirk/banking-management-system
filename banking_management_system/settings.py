@@ -26,9 +26,9 @@ PREDEFINED_APPS = [
 ]
 
 PROJECT_APPS = [
-    'apps.bank',
-    'apps.account',
-    'apps.transaction',
+    'apps.banks',
+    'apps.accounts',
+    'apps.transactions',
     'apps.user_dashboard',
 ]
 

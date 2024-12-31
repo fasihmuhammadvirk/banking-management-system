@@ -1,7 +1,7 @@
 from datetime import timezone
 
 from django.db import models
-from ..account.models import Account
+from ..accounts.models import Account
 from django.utils.timezone import now
 
 class Transaction(models.Model):
