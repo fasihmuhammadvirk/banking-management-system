@@ -10,6 +10,7 @@ def user_dashboard(request):
     context = {
         'username': current_user.username.upper()
     }
+
     return render(request, 'user_dashboard/dashboard.html', context)
 
 
@@ -36,4 +37,5 @@ def user_login_view(request):
 
 def user_logout_view(request):
     logout(request)
+
     return redirect('login')

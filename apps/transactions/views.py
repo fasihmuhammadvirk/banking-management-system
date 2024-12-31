@@ -5,7 +5,7 @@ from .models import Transaction
 
 
 @login_required
-def show_all_transaction(request):
+def show_all_transactions(request):
     context = dict()
     account_number_from_query = request.GET.get('account_number')
 
@@ -33,7 +33,7 @@ def make_transaction(request):
             transaction_type=transaction_type_user_select,
         )
 
-        if transaction_type_user_select == "Withdrawal" and amount_user_entered < user_information.balance:
+        if transaction_type_user_select == "Withdrawal" and amount_user_entered <= user_information.balance:
             user_information.balance -= amount_user_entered
             context['messages'] = [f"You have Withdrawal {amount_user_entered} "
                                    f"your current balance is {user_information.balance}"]
