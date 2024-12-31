@@ -9,4 +9,5 @@ def get_bank_list(request):
     context = {
         'bank_list': bank_object_list
     }
+
     return render(request, 'banks/bank_list.html', context)

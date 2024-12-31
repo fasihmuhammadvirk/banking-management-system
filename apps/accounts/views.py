@@ -7,7 +7,7 @@ from .models import Account
 def get_user_account_list(request):
     user_account_list = Account.objects.filter(user=request.user)
     context = {
-        'user_account_list': user_account_list
+        'user_account_list': user_account_list,
     }
 
     return render(request, 'accounts/user_account_list.html', context)
