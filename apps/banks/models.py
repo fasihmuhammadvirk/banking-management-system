@@ -1,9 +1,8 @@
 from django.db import models
 
 
-# Bank Model
 class Bank(models.Model):
-    name = models.CharField(max_length=100)  # Bank name
-    branch = models.CharField(max_length=100)  # Branch name
-    is_islamic = models.BooleanField(default=False)  # Flag for Islamic bank
-    created_at = models.DateTimeField(auto_now_add=True)  # Timestamp when bank was added
+    name = models.CharField(max_length=100)
+    branch = models.CharField(max_length=100)
+    is_islamic = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)

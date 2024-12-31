@@ -9,4 +9,4 @@ def get_user_account_list(request):
     user_account_list = Account.objects.filter(user=request.user)  # because we need all user information
     context['user_account_list'] = user_account_list
 
-    return render(request, 'account/user_account_list.html', context)
+    return render(request, 'accounts/user_account_list.html', context)

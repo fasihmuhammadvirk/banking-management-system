@@ -14,7 +14,7 @@ def show_all_transaction(request):
         all_user_transaction = Transaction.objects.filter(account=user_information)
         context['all_user_transaction'] = all_user_transaction
 
-    return render(request, 'transaction/transaction_history.html', context)
+    return render(request, 'transactions/transaction_history.html', context)
 
 
 @login_required
@@ -48,4 +48,4 @@ def make_transaction(request):
 
         user_information.save()
 
-    return render(request, 'transaction/do_transaction.html', context)
+    return render(request, 'transactions/do_transaction.html', context)
