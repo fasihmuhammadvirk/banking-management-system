@@ -17,8 +17,10 @@
         <p><strong>Bank Name</strong> {{account.bank.name}}</p>
         <p><strong>Account Number</strong> {{account.account_number}}</p>
         <p><strong>Balance</strong> {{account.balance}}</p>
-        <a class="btn btn--main" href="{% url 'transactions' %}?account_number={{account.account_number}}">Transaction History</a>
-        <a class="btn btn--main" href="{% url 'make/transaction' %}?account_number={{account.account_number}}">Do Transaction</a>
+        <a class="btn btn--main" href="{% url 'transactions' %}?account_number={{account.account_number}}">Transaction
+            History</a>
+        <a class="btn btn--main" href="{% url 'make/transaction' %}?account_number={{account.account_number}}">Do
+            Transaction</a>
         {% endfor %}
     </div>
     
