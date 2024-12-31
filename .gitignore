@@ -1,8 +1,8 @@
 __pycache__/
 .gitattributes
 .idea/
-banking-management-system/venv/
-banking-management-system/env/
-banking-management-system/db.sqlite3
-banking-management-system/.env
+venv/
+env/
+db.sqlite3
+.env
 .DS_Store
