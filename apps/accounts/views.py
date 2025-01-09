@@ -1,13 +1,14 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from .models import Account
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-@login_required
-def get_user_account_list(request):
-    user_account_list = Account.objects.filter(user=request.user)
-    context = {
-        'user_account_list': user_account_list,
-    }
+class UserList(LoginRequiredMixin, ListView):
+    model = Account
+    template_name = 'accounts/user_account_list.html'
 
-    return render(request, 'accounts/user_account_list.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_account_list'] = Account.objects.filter(user=self.request.user)
+
+        return context
