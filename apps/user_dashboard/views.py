@@ -2,40 +2,53 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.views.generic import View, RedirectView
+from .forms import UserLoginForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-@login_required
-def user_dashboard(request):
-    current_user = request.user
-    context = {
-        'username': current_user.username.upper()
-    }
+class LoginPageView(View):
+    template_name = 'user_dashboard/login_page.html'
+    form_class = UserLoginForm
 
-    return render(request, 'user_dashboard/dashboard.html', context)
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, context={'form': form})
 
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
 
-# Create your views here.
-def user_login_view(request):
-    # checking if the user is already authenticated
-    if request.user.is_authenticated:
-        return redirect('dashboard')
+            user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
+            )
+            if user is not None:
+                login(request, user)
+                context = {
+                    'username': user.username
+                }
+                return redirect('dashboard')
 
-    if request.method == 'POST':
+        messages.error(request, 'Please Try Again there something went wrong with you login')
 
-        entered_username = request.POST.get('username')
-        entered_password = request.POST.get('password')
-        is_user_authenticated = authenticate(request, username=entered_username, password=entered_password)
-
-        if is_user_authenticated:
-            login(request, is_user_authenticated)
-            return redirect('dashboard')
-        else:
-            messages.error(request, 'Please Try Again there something went wrong with you login')
-
-    return render(request, 'user_dashboard/login_page.html')
+        return render(request, self.template_name)
 
 
-def user_logout_view(request):
-    logout(request)
+class MyLogoutView(RedirectView):
 
-    return redirect('login')
+    def get(self, request):
+        logout(request)
+        return redirect('login')
+
+
+class DashboardView(LoginRequiredMixin, View):
+    template_name = 'user_dashboard/dashboard.html'
+
+    def get(self, request):
+        current_user = request.user
+        context = {
+            'username': current_user.username.upper()
+        }
+
+        return render(request, self.template_name, context)
