@@ -1,30 +1,41 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
+from django.views.generic import ListView, View
+from .forms import MakeTransactionForm
+
 from ..accounts.models import Account
 from .models import Transaction
 
 
-@login_required
-def show_all_transactions(request):
-    context = dict()
-    account_number_from_query = request.GET.get('account_number')
+class ShowTransaction(LoginRequiredMixin, ListView):
+    model = Transaction
+    template_name = 'transactions/transaction_history.html'
+    context_object_name = 'all_user_transaction'
 
-    if account_number_from_query:
+    def get_queryset(self):
+        account_number_from_query = self.request.GET.get('account_number')
         user_information = Account.objects.filter(account_number=account_number_from_query).first()
         all_user_transaction = Transaction.objects.filter(account=user_information)
-        context['all_user_transaction'] = all_user_transaction
-
-    return render(request, 'transactions/transaction_history.html', context)
+        return all_user_transaction
 
 
-@login_required
-def make_transaction(request):
-    context = dict()
-    account_number_from_query = request.GET.get('account_number')
+class MakeTransaction(LoginRequiredMixin, View):
+    template_name = 'transactions/do_transaction.html'
+    form_class = MakeTransactionForm
 
-    if request.method == "POST" and account_number_from_query:
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, context={'form': form})
+
+    def post(self, request):
+
+        context = dict()
+
+        account_number_from_query = request.GET.get('account_number')
+
         amount_user_entered = int(request.POST.get('amount'))
         transaction_type_user_select = request.POST.get('transaction_type')
+
         user_information = Account.objects.filter(account_number=account_number_from_query).first()
 
         Transaction.objects.create(
@@ -35,17 +46,15 @@ def make_transaction(request):
 
         if transaction_type_user_select == "Withdrawal" and amount_user_entered <= user_information.balance:
             user_information.balance -= amount_user_entered
-            context['messages'] = [f"You have Withdrawal {amount_user_entered} "
-                                   f"your current balance is {user_information.balance}"]
+            context['messages'] = [f'Transaction Successful Current Balance: {user_information.balance}']
 
         elif transaction_type_user_select == "Deposit":
             user_information.balance += amount_user_entered
-            context['messages'] = [f"You have Deposit {amount_user_entered} "
-                                   f"your current balance is {user_information.balance}"]
+            context['messages'] = [f'Transaction Successful Current Balance: {user_information.balance}']
 
         else:
             context['messages'] = ["Please enter a correct amount"]
 
         user_information.save()
 
-    return render(request, 'transactions/do_transaction.html', context)
+        return render(request, self.template_name, context)
