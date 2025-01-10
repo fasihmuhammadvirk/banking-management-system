@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.views.generic import ListView, View
+from django.views.generic import ListView, CreateView
 from .forms import MakeTransactionForm
 
 from ..accounts.models import Account
@@ -11,6 +11,8 @@ class ShowTransaction(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = 'transactions/transaction_history.html'
     context_object_name = 'all_user_transaction'
+    login_url = 'login/'
+    redirect_field_name = 'next'
 
     def get_queryset(self):
         account_number_from_query = self.request.GET.get('account_number')
@@ -19,13 +21,11 @@ class ShowTransaction(LoginRequiredMixin, ListView):
         return all_user_transaction
 
 
-class MakeTransaction(LoginRequiredMixin, View):
+class MakeTransaction(LoginRequiredMixin, CreateView):
     template_name = 'transactions/do_transaction.html'
     form_class = MakeTransactionForm
-
-    def get(self, request):
-        form = self.form_class()
-        return render(request, self.template_name, context={'form': form})
+    login_url = 'login/'
+    redirect_field_name = 'next'
 
     def post(self, request):
 

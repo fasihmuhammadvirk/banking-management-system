@@ -9,3 +9,5 @@ class BankView(LoginRequiredMixin, ListView):
     template_name = 'banks/bank_list.html'
     context_object_name = 'bank_list'
     queryset = Bank.objects.all()
+    login_url = 'login/'
+    redirect_field_name = 'next'
