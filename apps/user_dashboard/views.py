@@ -1,37 +1,15 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
-from django.views.generic import View, RedirectView
+from django.views.generic import View, RedirectView, FormView
 from .forms import UserLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 
+class LoginPageView(LoginView):
 
-class LoginPageView(View):
-    template_name = 'user_dashboard/login_page.html'
-    form_class = UserLoginForm
-
-    def get(self, request):
-        form = self.form_class()
-        return render(request, self.template_name, context={'form': form})
-
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-
-            user = authenticate(
-                username=form.cleaned_data['username'],
-                password=form.cleaned_data['password'],
-            )
-            if user is not None:
-                login(request, user)
-                context = {
-                    'username': user.username
-                }
-                return redirect('dashboard')
-
-        messages.error(request, 'Please Try Again there something went wrong with you login')
-
-        return render(request, self.template_name)
+    template_name =  'user_dashboard/login_page.html'
+    redirect_authenticated_user = True
+    next_page =  '/'
 
 
 class MyLogoutView(RedirectView):
@@ -43,6 +21,8 @@ class MyLogoutView(RedirectView):
 
 class DashboardView(LoginRequiredMixin, View):
     template_name = 'user_dashboard/dashboard.html'
+    login_url = 'login/'
+    redirect_field_name = 'next'
 
     def get(self, request):
         current_user = request.user
