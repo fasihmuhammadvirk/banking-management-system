@@ -5,7 +5,7 @@ from .models import Transaction
 
 
 @login_required
-def show_all_transactions(request):
+def transactions_list_view(request):
     context = dict()
     account_number_from_query = request.GET.get('account_number')
 
@@ -18,7 +18,7 @@ def show_all_transactions(request):
 
 
 @login_required
-def make_transaction(request):
+def transaction_create_view(request):
     context = dict()
     account_number_from_query = request.GET.get('account_number')
 
@@ -48,4 +48,4 @@ def make_transaction(request):
 
         user_information.save()
 
-    return render(request, 'transactions/do_transaction.html', context)
+    return render(request, 'transactions/create_transaction.html', context)

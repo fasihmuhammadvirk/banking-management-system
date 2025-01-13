@@ -5,7 +5,7 @@ from django.contrib import messages
 
 
 @login_required
-def user_dashboard(request):
+def user_dashboard_view(request):
     current_user = request.user
     context = {
         'username': current_user.username.upper()

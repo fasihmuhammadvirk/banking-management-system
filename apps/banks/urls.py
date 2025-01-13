@@ -1,8 +1,8 @@
 from django.urls import path
-from . import views
+from apps.banks.views import bank_list_view
 
 urlpatterns = [
 
-    path('banks/', views.get_bank_list, name='banks'),
+    path('banks/', bank_list_view, name='banks'),
 
 ]

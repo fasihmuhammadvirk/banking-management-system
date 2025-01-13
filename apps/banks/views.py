@@ -4,7 +4,7 @@ from .models import Bank
 
 
 @login_required
-def get_bank_list(request):
+def bank_list_view(request):
     bank_object_list = Bank.objects.all()
     context = {
         'bank_list': bank_object_list
