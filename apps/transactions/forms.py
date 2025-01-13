@@ -1,4 +1,4 @@
-from .models import Transaction
+from apps.transactions.models import Transaction
 from django.forms import ModelForm
 
 

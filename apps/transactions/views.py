@@ -3,11 +3,11 @@ from django.shortcuts import render
 from django.views.generic import ListView, CreateView
 from .forms import MakeTransactionForm
 
-from ..accounts.models import Account
-from .models import Transaction
+from apps.accounts.models import Account
+from apps.transactions.models import Transaction
 
 
-class ShowTransaction(LoginRequiredMixin, ListView):
+class TransactionListView(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = 'transactions/transaction_history.html'
     context_object_name = 'all_user_transaction'
@@ -21,8 +21,8 @@ class ShowTransaction(LoginRequiredMixin, ListView):
         return all_user_transaction
 
 
-class MakeTransaction(LoginRequiredMixin, CreateView):
-    template_name = 'transactions/do_transaction.html'
+class TransactionCreateView(LoginRequiredMixin, CreateView):
+    template_name = 'transactions/create_transaction.html'
     form_class = MakeTransactionForm
     login_url = 'login/'
     redirect_field_name = 'next'

@@ -1,15 +1,14 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout
 from django.views.generic import View, RedirectView, FormView
-from .forms import UserLoginForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 
-class LoginPageView(LoginView):
 
-    template_name =  'user_dashboard/login_page.html'
+class LoginPageView(LoginView):
+    template_name = 'user_dashboard/login_page.html'
     redirect_authenticated_user = True
-    next_page =  '/'
+    next_page = '/'
 
 
 class MyLogoutView(RedirectView):

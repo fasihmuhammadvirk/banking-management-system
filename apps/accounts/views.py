@@ -1,9 +1,9 @@
-from .models import Account
+from apps.accounts.models import Account
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class UserList(LoginRequiredMixin, ListView):
+class UserListView(LoginRequiredMixin, ListView):
     model = Account
     template_name = 'accounts/user_account_list.html'
 

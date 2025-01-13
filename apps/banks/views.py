@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 
-from .models import Bank
+from apps.banks.models import Bank
 
 
-class BankView(LoginRequiredMixin, ListView):
+class BankListView(LoginRequiredMixin, ListView):
     model = Bank
     template_name = 'banks/bank_list.html'
     context_object_name = 'bank_list'

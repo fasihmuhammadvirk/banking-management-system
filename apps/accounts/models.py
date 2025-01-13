@@ -1,4 +1,4 @@
-from ..banks.models import Bank
+from apps.banks.models import Bank
 from django.db import models
 from django.contrib.auth.models import User
 
