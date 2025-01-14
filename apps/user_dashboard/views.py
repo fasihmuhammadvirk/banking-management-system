@@ -10,7 +10,6 @@ class LoginPageView(LoginView):
     redirect_authenticated_user = True
     next_page = '/'
 
-
 class MyLogoutView(RedirectView):
 
     def get(self, request):
