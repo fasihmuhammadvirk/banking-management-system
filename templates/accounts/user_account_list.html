@@ -19,7 +19,7 @@
         <p><strong>Balance</strong> {{account.balance}}</p>
         <a class="btn btn--main" href="{% url 'transactions-list' %}?account_number={{account.account_number}}">Transaction
             History</a>
-        <a class="btn btn--main" href="{% url 'make-transaction' %}?account_number={{account.account_number}}">Do
+        <a class="btn btn--main" href="{% url 'make-transaction' %}?account_number={{account.account_number}}">Make
             Transaction</a>
         {% endfor %}
     </div>

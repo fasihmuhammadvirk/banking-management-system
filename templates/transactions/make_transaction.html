@@ -12,8 +12,11 @@
     {% endif%}
     
     <div class="list">
-        <h2>Make Your Transaction</h2>
+        
         <form action="" method="post">
+            {% if form %}
+            <h2>Make Your Transaction</h2>
+            {%endif%}
             {% csrf_token %}
             
             {%for field in form%}
