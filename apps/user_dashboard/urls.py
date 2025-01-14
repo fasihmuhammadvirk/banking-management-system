@@ -8,4 +8,3 @@ urlpatterns = [
     path('logout/', user_logout_view, name='logout'),
 
 ]
-ß
