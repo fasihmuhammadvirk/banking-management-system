@@ -6,5 +6,5 @@ from apps.transactions.models import Transaction
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):
     list_display = ('account', 'amount', 'transaction_type', 'created_at')
-    list_filter = ('transaction_type', 'account__account_number')
-    search_fields = ('account__account_number',)
+    list_filter = ('transaction_type', 'amount', 'account__user')
+    search_fields = ('transaction_type', 'amount', 'account__user__username')
