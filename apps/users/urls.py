@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.user_dashboard.views import user_dashboard_view, user_login_view, user_logout_view
+from apps.users.views import user_dashboard_view, user_login_view, user_logout_view
 
 urlpatterns = [
 

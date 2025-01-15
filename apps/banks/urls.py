@@ -3,6 +3,6 @@ from apps.banks.views import bank_list_view
 
 urlpatterns = [
 
-    path('banks/', bank_list_view, name='banks'),
+    path('', bank_list_view, name='banks-list'),
 
 ]

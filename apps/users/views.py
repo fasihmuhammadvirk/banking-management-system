@@ -11,7 +11,7 @@ def user_dashboard_view(request):
         'username': current_user.username.upper()
     }
 
-    return render(request, 'user_dashboard/dashboard.html', context)
+    return render(request, 'user/dashboard.html', context)
 
 
 # Create your views here.
@@ -32,7 +32,7 @@ def user_login_view(request):
         else:
             messages.error(request, 'Please Try Again there something went wrong with you login')
 
-    return render(request, 'user_dashboard/login_page.html')
+    return render(request, 'user/login_page.html')
 
 
 def user_logout_view(request):
