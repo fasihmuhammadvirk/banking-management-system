@@ -1,8 +1,9 @@
 from django.db import models
 from apps.accounts.models import Account
+from banking_management_system.models import BaseModel
 
 
-class Transaction(models.Model):
+class Transaction(BaseModel):
     TRANSACTION_TYPES = [
         ('Deposit', 'Deposit'),
         ('Withdrawal', 'Withdrawal'),
@@ -10,8 +11,8 @@ class Transaction(models.Model):
 
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     transaction_type = models.CharField(max_length=10, choices=TRANSACTION_TYPES)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    # timestamp = models.DateTimeField(auto_now_add=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="account")
 
     class Meta:
-        ordering = ['-timestamp']
+        ordering = ['-created_at']
