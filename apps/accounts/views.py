@@ -1,6 +1,6 @@
+from apps.accounts.models import Account
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from apps.accounts.models import Account
 
 
 @login_required
