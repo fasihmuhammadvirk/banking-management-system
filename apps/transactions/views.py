@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView
-from .forms import MakeTransactionForm
+from apps.transactions.forms import MakeTransactionForm
 
 from apps.accounts.models import Account
 from apps.transactions.models import Transaction
