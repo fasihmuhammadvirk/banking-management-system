@@ -5,6 +5,7 @@ from apps.transactions.forms import MakeTransactionForm
 
 from apps.accounts.models import Account
 from apps.transactions.models import Transaction
+from apps.transactions.utils import get_create_transaction_context
 
 
 class TransactionListView(LoginRequiredMixin, ListView):
@@ -28,33 +29,11 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
     redirect_field_name = 'next'
 
     def post(self, request):
-
-        context = dict()
-
         account_number_from_query = request.GET.get('account_number')
 
-        amount_user_entered = int(request.POST.get('amount'))
-        transaction_type_user_select = request.POST.get('transaction_type')
-
-        user_account_data = Account.objects.filter(account_number=account_number_from_query).first()
-
-        Transaction.objects.create(
-            account=user_account_data,
-            amount=amount_user_entered,
-            transaction_type=transaction_type_user_select,
-        )
-
-        if transaction_type_user_select == "Withdrawal" and amount_user_entered <= user_account_data.balance:
-            user_account_data.balance -= amount_user_entered
-            context['messages'] = [f'Transaction Successful Current Balance: {user_account_data.balance}']
-
-        elif transaction_type_user_select == "Deposit":
-            user_account_data.balance += amount_user_entered
-            context['messages'] = [f'Transaction Successful Current Balance: {user_account_data.balance}']
-
-        else:
-            context['messages'] = ["Please enter a correct amount"]
-
-        user_account_data.save()
+        if request.method == "POST" and account_number_from_query:
+            amount_user_entered = int(request.POST.get('amount'))
+            transaction_type_user_select = request.POST.get('transaction_type')
+            context = get_create_transaction_context(amount_user_entered, transaction_type_user_select)
 
         return render(request, self.template_name, context)
