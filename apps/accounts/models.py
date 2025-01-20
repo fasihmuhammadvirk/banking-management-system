@@ -12,3 +12,6 @@ class Account(BaseModel):
 
     class Meta:
         unique_together = ['bank', 'user']
+
+    def __str__(self):
+        return f"{self.user}"

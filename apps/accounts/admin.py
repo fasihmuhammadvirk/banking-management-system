@@ -5,6 +5,6 @@ from apps.accounts.models import Account
 # Register your models here.
 @admin.register(Account)
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ('user__username', 'bank__name', 'account_number', 'balance')
-    list_filter = ('user__username', 'bank__name', 'created_at')
-    search_fields = ('=user__username', 'bank__name')
+    list_display = ('user', 'bank', 'account_number', 'balance', 'created_at', 'updated_at')
+    list_filter = ('created_at', 'updated_at', 'bank')
+    search_fields = ('=user', 'bank')
