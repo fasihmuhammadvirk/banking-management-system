@@ -14,4 +14,4 @@ class Account(BaseModel):
         unique_together = ['bank', 'user']
 
     def __str__(self):
-        return f"{self.user}"
+        return str(self.user)

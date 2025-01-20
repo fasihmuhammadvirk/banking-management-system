@@ -9,4 +9,4 @@ class User(AbstractUser, BaseModel):
     phone_number = models.IntegerField(default=00000000000)
 
     def __str__(self):
-        return f"{self.username}"
+        return self.username
