@@ -11,7 +11,6 @@ class Transaction(BaseModel):
 
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     transaction_type = models.CharField(max_length=10, choices=TRANSACTION_TYPES)
-    # timestamp = models.DateTimeField(auto_now_add=True)
     account = models.ForeignKey(Account, on_delete=models.CASCADE, related_name="account")
 
     class Meta:
