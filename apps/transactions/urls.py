@@ -1,9 +1,9 @@
 from django.urls import path
-from apps.transactions.views import TransactionListView, TransactionCreateView
+from apps.transactions.views import transactions_list_view, transaction_create_view
 
 urlpatterns = [
 
-    path('transactions/', TransactionListView.as_view(), name='transactions-list'),
-    path('make/transaction/', TransactionCreateView.as_view(), name='make-transaction'),
+    path('history/', transactions_list_view, name='transactions-list'),
+    path('make/', transaction_create_view, name='make-transaction'),
 
 ]

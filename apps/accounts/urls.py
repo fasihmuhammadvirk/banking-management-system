@@ -3,6 +3,6 @@ from apps.accounts.views import UserListView
 
 urlpatterns = [
 
-    path("accounts/", UserListView.as_view(), name='accounts-list'),
+    path("", user_account_list_view, name='accounts-list'),
 
 ]
