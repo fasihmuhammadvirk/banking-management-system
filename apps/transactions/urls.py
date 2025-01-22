@@ -3,7 +3,7 @@ from apps.transactions.views import transactions_list_view, transaction_create_v
 
 urlpatterns = [
 
-    path('transactions/', transactions_list_view, name='transactions-list'),
-    path('create/transaction/', transaction_create_view, name='create-transaction'),
+    path('history/', transactions_list_view, name='transactions-list'),
+    path('make/', transaction_create_view, name='make-transaction'),
 
 ]

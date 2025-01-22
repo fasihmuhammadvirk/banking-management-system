@@ -15,7 +15,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # Application definition
-PREDEFINED_APPS = [
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -28,10 +28,10 @@ PROJECT_APPS = [
     'apps.banks',
     'apps.accounts',
     'apps.transactions',
-    'apps.user_dashboard',
+    'apps.users',
 ]
 
-INSTALLED_APPS = PREDEFINED_APPS + PROJECT_APPS
+INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
