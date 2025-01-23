@@ -1,5 +1,3 @@
-from django.conf import STATICFILES_STORAGE_ALIAS
-from django.conf.global_settings import STATIC_ROOT
 from dotenv import load_dotenv
 from pathlib import Path
 import os
