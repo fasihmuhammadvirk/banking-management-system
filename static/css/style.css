@@ -1,17 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 :root {
-  --color-main: #71c6dd;
+  --color-main:#0f1522;
   --color-main-light: #e1f6fb;
   --color-dark: #3f4156;
   --color-dark-medium: #51546e;
   --color-dark-light: #696d97;
-  --color-light: #e5e5e5;
+  --color-light-gray: #e5e5e5;
   --color-gray: #8b8b8b;
-  --color-light-gray: #b2bdbd;
-  --color-bg: #2d2d39;
+  --color-light-gray-gray: #b2bdbd;
+  --color-bg: #111826;
   --color-success: #5dd693;
   --color-error: #fc4b0b;
+  --color-btn:#9334e9;
 }
 
 * {
@@ -44,7 +45,7 @@ body {
   line-height: 1.6;
   font-weight: 400;
   font-size: 1.5rem;
-  color: var(--color-light-gray);
+  color: var(--color-main-light);
   background-color: var(--color-bg);
   min-height: 100vh;
 }
@@ -57,7 +58,7 @@ body {
   padding: 0 2rem;
   height: 7vh;
   background-color: var(--color-main);
-  color: var(--color-dark);
+  color: var(--color-light-gray-gray);
 }
 
 .heading h2 {
@@ -98,7 +99,7 @@ body {
 }
 
 .dashboard-list a {
-  color: var(--color-main-light) !important;
+  color: var(--color-light-gray-gray) !important;
   text-decoration: none;
 }
 
@@ -136,7 +137,7 @@ body {
   padding: 1rem;
   border-radius: 3px;
   width: 100%;
-  color: var(--color-light);
+  color: var(--color-light-gray-gray);
   font-weight: 500;
   outline: none;
 }
@@ -159,7 +160,7 @@ body {
 
 .form__group select option {
   background-color: var(--color-dark-light);
-  color: var(--color-light);
+  color: var(--color-light-gray);
   padding: 0 10rem;
 }
 
@@ -175,28 +176,30 @@ body {
   border-radius: 5px;
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
   font-weight: 500;
+  text-decoration: none;
 }
 
 .btn--main {
-  background-color: var(--color-main);
-  color: var(--color-dark);
+  background-color: var(--color-btn);
+  color: var(--color-main-light);
 }
 
 .btn:hover {
   opacity: 0.9;
-  color: var(--color-main);
-  background-color: var(--color-dark);
+  color: var(--color-btn);
+  background-color: var(--color-main-light);
 }
 
 .btn--link {
   border-radius: 0;
   padding: 0;
-  color: var(--color-main);
+  color: var(--color-main-light);
   box-shadow: none;
+  text-decoration: none;
 }
 
 .btn--link:hover {
-  text-decoration: underline;
+  color: var(--color-btn);
 }
 
 .list-container {
@@ -218,7 +221,7 @@ body {
   overflow: hidden;
 }
 .list strong {
-  color: var(--color-light);
+  color: var(--color-main-light);
 }
 
 .list h2 {
