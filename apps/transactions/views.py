@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from apps.accounts.models import Account
+from apps.transactions.utils import update_user_balance_and_create_transaction_history
 from apps.transactions.models import Transaction
+from apps.accounts.models import Account
 
 
 @login_required
@@ -25,28 +26,14 @@ def transaction_create_view(request):
 
     if request.method == "POST" and account_number_from_query:
         amount_user_entered = int(request.POST.get('amount'))
-        transaction_type_user_select = request.POST.get('transaction_type')
-        user_information = Account.objects.filter(account_number=account_number_from_query).first()
+        transaction_type_user_select = str(request.POST.get('transaction_type'))
 
-        Transaction.objects.create(
-            account=user_information,
-            amount=amount_user_entered,
-            transaction_type=transaction_type_user_select,
-        )
-
-        if transaction_type_user_select == "Withdrawal" and amount_user_entered <= user_information.balance:
-            user_information.balance -= amount_user_entered
-            context['messages'] = [f"You have Withdrawal {amount_user_entered} "
-                                   f"your current balance is {user_information.balance}"]
-
-        elif transaction_type_user_select == "Deposit":
-            user_information.balance += amount_user_entered
-            context['messages'] = [f"You have Deposit {amount_user_entered} "
-                                   f"your current balance is {user_information.balance}"]
-
+        is_transaction_successful = update_user_balance_and_create_transaction_history(transaction_type_user_select,
+                                                                                       amount_user_entered,
+                                                                                       account_number_from_query)
+        if is_transaction_successful:
+            context = ['Transaction Successful']
         else:
-            context['messages'] = ["Please enter a correct amount"]
-
-        user_information.save()
+            context = ['Please try again something went wrong']
 
     return render(request, 'transactions/create_transaction.html', context)
