@@ -7,4 +7,4 @@ from apps.accounts.models import Account
 class AccountAdmin(admin.ModelAdmin):
     list_display = ('user', 'bank', 'account_number', 'balance', 'created_at', 'updated_at')
     list_filter = ('created_at', 'updated_at')
-    search_fields = ('=user', 'bank')
+    search_fields = ('=user', 'bank', 'account_number')

@@ -8,4 +8,4 @@ class Bank(BaseModel):
     is_islamic = models.BooleanField(default=False)
 
     def __str__(self):
-        return  self.name
+        return  f'Bank Name:{self.name}, Branch: {self.branch}'
