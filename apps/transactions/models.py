@@ -12,3 +12,6 @@ class Transaction(BaseModel):
 
     class Meta:
         ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.account}, Amount: {self.amount}"
