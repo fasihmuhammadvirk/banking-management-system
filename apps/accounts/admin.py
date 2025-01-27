@@ -8,4 +8,4 @@ from apps.accounts.models import Account
 class AccountAdmin(ModelAdmin):
     list_display = ('user', 'bank', 'account_number', 'balance', 'created_at', 'updated_at')
     list_filter = ('created_at', 'updated_at')
-    search_fields = ('user__username', 'bank__name', '=account_number')
+    search_fields = ('user__username', 'bank__name', 'account_number')

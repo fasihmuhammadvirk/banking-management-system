@@ -2,9 +2,12 @@ from apps.transactions.models import Transaction
 from apps.accounts.models import Account
 
 
-def update_user_balance_and_create_transaction_history(transaction_type_user_select: str,
-                                                       amount_user_entered: int, account_number: str) -> bool:
-    user_information = Account.object.filter(account_number=account_number)
+def validate_and_process_transaction(transaction_type_user_select: str,
+                                     amount_user_entered: int,
+                                     account_number_from_query: str
+                                     ) -> bool:
+
+    user_information = Account.objects.get(account_number=account_number_from_query)
     process_success_flag = False
 
     if transaction_type_user_select == "Withdrawal" and amount_user_entered <= user_information.balance:
@@ -18,11 +21,12 @@ def update_user_balance_and_create_transaction_history(transaction_type_user_sel
     else:
         return process_success_flag
 
-    Transaction.objects.create(
-        account=user_information,
-        amount=amount_user_entered,
-        transaction_type=transaction_type_user_select,
-    )
+    if process_success_flag:
+        Transaction.objects.create(
+            account=user_information,
+            amount=amount_user_entered,
+            transaction_type=transaction_type_user_select,
+        )
 
     user_information.save()
     return process_success_flag
