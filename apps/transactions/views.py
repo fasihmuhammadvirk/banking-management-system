@@ -1,19 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from apps.transactions.utils import update_user_balance_and_create_transaction_history
+from apps.transactions.utils import validate_and_process_transaction
 from apps.transactions.models import Transaction
-from apps.accounts.models import Account
 
 
 @login_required
 def transactions_list_view(request):
     context = dict()
-    account_number_from_query = request.GET.get('account_number')
+    account_number_query_para = request.GET.get('account_number')
 
-    if account_number_from_query:
-        user_information = Account.objects.filter(account_number=account_number_from_query).first()
-        all_user_transaction = Transaction.objects.filter(account=user_information)
+    if account_number_query_para:
+        all_user_transaction = Transaction.objects.filter(account__account_number=account_number_query_para)
         context['all_user_transaction'] = all_user_transaction
 
     return render(request, 'transactions/transaction_history.html', context)
@@ -22,18 +20,21 @@ def transactions_list_view(request):
 @login_required
 def transaction_create_view(request):
     context = dict()
-    account_number_from_query = request.GET.get('account_number')
+    account_number_query_para = request.GET.get('account_number')
 
-    if request.method == "POST" and account_number_from_query:
-        amount_user_entered = int(request.POST.get('amount'))
-        transaction_type_user_select = str(request.POST.get('transaction_type'))
+    if request.method == "POST" and account_number_query_para:
+        entered_amount = int(request.POST.get('amount'))
+        selected_transaction_type = str(request.POST.get('transaction_type'))
 
-        is_transaction_successful = update_user_balance_and_create_transaction_history(transaction_type_user_select,
-                                                                                       amount_user_entered,
-                                                                                       account_number_from_query)
+        is_transaction_successful = validate_and_process_transaction(
+            selected_transaction_type,
+            entered_amount,
+            account_number_query_para
+        )
+
         if is_transaction_successful:
-            context = ['Transaction Successful']
+            context['messages'] = ['Transaction Successful']
         else:
-            context = ['Please try again something went wrong']
+            context['messages'] = ['Please try again something went wrong']
 
     return render(request, 'transactions/create_transaction.html', context)
