@@ -1,4 +1,7 @@
+DEPOSIT = 'Deposit'
+WITHDRAWAL = 'Withdrawal'
+
 TRANSACTION_TYPES = [
-    ('Deposit', 'Deposit'),
-    ('Withdrawal', 'Withdrawal'),
+    (DEPOSIT, 'Deposit'),
+    (WITHDRAWAL, 'Withdrawal'),
 ]
