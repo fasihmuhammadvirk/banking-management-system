@@ -4,10 +4,10 @@ from apps.accounts.models import Account
 
 def validate_and_process_transaction(transaction_type_user_select: str,
                                      amount_user_entered: int,
-                                     account_number_from_query: str
+                                     account_number: str
                                      ) -> bool:
 
-    user_information = Account.objects.get(account_number=account_number_from_query)
+    user_information = Account.objects.get(account_number=account_number)
     process_success_flag = False
 
     if transaction_type_user_select == "Withdrawal" and amount_user_entered <= user_information.balance:

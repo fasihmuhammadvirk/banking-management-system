@@ -6,35 +6,33 @@ from apps.transactions.models import Transaction
 
 
 @login_required
-def transactions_list_view(request):
-    context = dict()
-    account_number_query_para = request.GET.get('account_number')
+def transactions_list_view(request, account_number):
+    all_user_transaction = Transaction.objects.filter(account__account_number=account_number)
 
-    if account_number_query_para:
-        all_user_transaction = Transaction.objects.filter(account__account_number=account_number_query_para)
-        context['all_user_transaction'] = all_user_transaction
-
+    context = {
+        'all_user_transaction': all_user_transaction
+    }
     return render(request, 'transactions/transaction_history.html', context)
 
 
 @login_required
-def transaction_create_view(request):
+def transaction_create_view(request, account_number):
     context = dict()
-    account_number_query_para = request.GET.get('account_number')
-
-    if request.method == "POST" and account_number_query_para:
+    if request.method == "POST" and account_number:
         entered_amount = int(request.POST.get('amount'))
         selected_transaction_type = str(request.POST.get('transaction_type'))
 
         is_transaction_successful = validate_and_process_transaction(
             selected_transaction_type,
             entered_amount,
-            account_number_query_para
+            account_number
         )
 
         if is_transaction_successful:
             context['messages'] = ['Transaction Successful']
         else:
             context['messages'] = ['Please try again something went wrong']
+    else:
+        context['messages'] = ['Invalid Request']
 
     return render(request, 'transactions/create_transaction.html', context)
