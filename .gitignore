@@ -1,5 +1,11 @@
 __pycache__/
 .gitattributes
 .idea/
-banking_management_system/env/
-banking_management_system/db.sqlite3
+venv/
+env/
+db.sqlite3
+.env
+.DS_Store
+__init__.py
+static/
+staticfiles/
