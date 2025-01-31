@@ -7,21 +7,31 @@
     <div class="list">
         <a class="btn btn--main" href="{% url 'dashboard' %}">Back</a>
     </div>
-    <div class="list">
-        <h2>List of all Banks</h2>
-        <hr>
+    
+    <table class="list-table">
+        <thead>
+        <tr>
+            <th>Bank Name</th>
+            <th>Branch Address</th>
+            <th>Is Islamic</th>
+            <th>Opened On</th>
+        </tr>
+        </thead>
+        <tbody>
         {% for bank in bank_list%}
-        <p><strong>Bank Name:</strong> {{bank.name}}</p>
-        <p><strong>Branch:</strong> {{bank.branch}}</p>
-        {%if bank.is_islamic %}
-        <p><strong>Type:</strong> Islamic Bank</p>
-        {%else%}
-        <p><strong>Type:</strong> Not Islamic Bank</p>
-        {% endif %}
-        <p><strong>Opened on:</strong> {{bank.created_at}}</p>
-        <hr>
+        <tr>
+            <td>{{bank.name}}</td>
+            <td>{{bank.branch}}</td>
+            {%if bank.is_islamic %}
+            <td>Yes</td>
+            {%else%}
+            <td>No</td>
+            {% endif %}
+            <td>{{ bank.created_at }}</td>
+        </tr>
         {% endfor %}
-    </div>
+        </tbody>
+    </table>
     {%else%}
     <div class="list-message">
         <div class="list">

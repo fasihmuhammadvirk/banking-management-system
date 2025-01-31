@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="list-container">
+    
+    {% if messages%}
+    {% for message in messages%}
+    <div class="list-message">
+        <p>{{message}}</p>
+    </div>
+    {%endfor%}
+    {% endif%}
+    
+    <div class="list">
+        
+        <form action="" method="post">
+            {% if form %}
+            <h2>Make Your Transaction</h2>
+            {%endif%}
+            {% csrf_token %}
+            
+            {%for field in form%}
+            <div class="form__group">
+                <label for="amount">{{field.label}}</label>
+                {{field}}
+            </div>
+            {%endfor%}
+            {% if form %}
+            <button class="btn btn--main">Confirm</button>
+            {%endif %}
+            <a class="btn btn--main" href="{% url 'accounts-list' %}">Back</a>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
