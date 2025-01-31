@@ -3,8 +3,9 @@ from django.shortcuts import render
 from django.views.generic import ListView, CreateView, FormView
 from apps.transactions.forms import MakeTransactionForm
 
-from apps.accounts.models import Account
+from apps.transactions.utils import validate_and_process_transaction
 from apps.transactions.models import Transaction
+
 from apps.transactions.utils import update_user_balance_and_create_transaction_history
 
 
