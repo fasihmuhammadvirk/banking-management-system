@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% block content %}
+{% load static %}
+<div class="login-conatiner">
+    <form class="login-form" action="" method="POST">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="form__group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        </div>
+        
+        {% if field.name == "password" %}
+        <div class="form__group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" name="confirm_password" id="confirm_password" class="form-control">
+        </div>
+        {% endif %}
+        {% endfor %}
+        
+        <button class="btn btn--main" type="submit">Signup</button>
+    </form>
+
+</div>
+
+{% endblock %}
