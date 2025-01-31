@@ -18,3 +18,4 @@ class UserCreateView(LoginRequiredMixin, CreateView):
     model = Account
     template_name = 'accounts/create_account.html'
     fields = ['balance', 'account_number', 'bank', 'user']
+    success_url = '/'
