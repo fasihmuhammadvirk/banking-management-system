@@ -125,12 +125,14 @@ body {
   box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.15);
   font-weight: 200;
   font-size:1.75rem !important;
+  margin-bottom:2rem;
 }
 
-.dashboard-list .d-list-container:hover a {
+.dashboard-list .d-list-container a:hover {
   color: var(--color-main-light) !important;
   background:var(--color-btn);
   text-decoration: none;
+
 }
 
 .login-conatiner {
