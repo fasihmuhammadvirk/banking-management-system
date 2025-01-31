@@ -6,7 +6,7 @@ from django.contrib.auth.views import LoginView
 
 
 class LoginPageView(LoginView):
-    template_name = 'user_dashboard/login_page.html'
+    template_name = 'user/login_page.html'
     redirect_authenticated_user = True
     next_page = '/'
 

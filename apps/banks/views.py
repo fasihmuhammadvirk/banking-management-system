@@ -16,3 +16,4 @@ class BankCreateView(LoginRequiredMixin, CreateView):
     model = Bank
     fields = ['name', 'branch', 'is_islamic']
     template_name = 'banks/create_bank.html'
+    success_url = "/"
