@@ -17,7 +17,7 @@ class MyLogoutView(RedirectView):
 
 
 class DashboardView(LoginRequiredMixin, View):
-    template_name = 'user_dashboard/dashboard.html'
+    template_name = 'user/dashboard.html'
     login_url = 'login/'
     redirect_field_name = 'next'
 

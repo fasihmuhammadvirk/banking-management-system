@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView, FormView
+
+from apps.accounts.models import Account
 from apps.transactions.forms import MakeTransactionForm
 
 from apps.transactions.utils import validate_and_process_transaction
 from apps.transactions.models import Transaction
-
-from apps.transactions.utils import update_user_balance_and_create_transaction_history
 
 
 class TransactionListView(LoginRequiredMixin, ListView):
@@ -16,9 +16,9 @@ class TransactionListView(LoginRequiredMixin, ListView):
     login_url = 'login/'
     redirect_field_name = 'next'
 
-    def get_queryset(self):
-        account_number_from_query = self.request.GET.get('account_number')
-        user_account_data = Account.objects.filter(account_number=account_number_from_query).first()
+    def get_queryset(self, **kwargs):
+        account_number = self.kwargs.get('account_number')
+        user_account_data = Account.objects.get(account_number=account_number)
         all_user_transaction = Transaction.objects.filter(account=user_account_data)
         return all_user_transaction
 
@@ -31,19 +31,19 @@ class TransactionCreateView(LoginRequiredMixin, FormView):
 
     def form_valid(self, form):
         context = dict()
-        account_number_from_query = self.request.GET.get('account_number')
+        account_number = self.kwargs.get('account_number')
 
-        if account_number_from_query:
-            amount_user_entered = int(form.cleaned_data['amount'])
-            transaction_type_user_select = form.cleaned_data['transaction_type']
+        amount_user_entered = int(form.cleaned_data['amount'])
+        transaction_type_user_select = form.cleaned_data['transaction_type']
 
-            is_transaction_successful = update_user_balance_and_create_transaction_history(
-                transaction_type_user_select,
-                amount_user_entered,
-                account_number_from_query)
+        is_transaction_successful = validate_and_process_transaction(
+            transaction_type_user_select,
+            amount_user_entered,
+            account_number)
 
-            if is_transaction_successful:
-                context = ['Transaction Successful']
-            else:
-                context = ['Please try again something went wrong']
+        if is_transaction_successful:
+            context['messages'] = ['Transaction Successful']
+        else:
+            context['messages'] = ['Please try again something went wrong']
+
         return render(form, self.template_name, context)
