@@ -11,28 +11,12 @@
         <p>{{message}}</p>
         {% endfor %}
         {% endif %}
-        
+        {%for field in form%}
         <div class="form__group">
-            <label for="username">Username</label>
-            <input
-                    id="username"
-                    name="username"
-                    type="text"
-                    required
-                    placeholder="Enter your username"
-            />
+            <label for="username">{{field.label}}</label>
+            {{field}}
         </div>
-        <div class="form__group">
-            <label for="password">Password</label>
-            <input
-                    id="password"
-                    name="password"
-                    type="password"
-                    required
-                    placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
-            />
-        </div>
-        
+        {%endfor%}
         <button class="btn btn--main" type="submit">Login</button>
     </form>
 

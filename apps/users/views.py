@@ -1,41 +1,30 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
+from django.contrib.auth import logout
+from django.views.generic import View, RedirectView, FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 
 
-@login_required
-def user_dashboard_view(request):
-    current_user = request.user
-    context = {
-        'username': current_user.username.upper()
-    }
+class LoginPageView(LoginView):
+    template_name = 'user_dashboard/login_page.html'
+    redirect_authenticated_user = True
+    next_page = '/'
 
-    return render(request, 'user/dashboard.html', context)
-
-
-# Create your views here.
-def user_login_view(request):
-    # checking if the user is already authenticated
-    if request.user.is_authenticated:
-        return redirect('dashboard')
-
-    if request.method == 'POST':
-
-        entered_username = request.POST.get('username')
-        entered_password = request.POST.get('password')
-        is_user_authenticated = authenticate(request, username=entered_username, password=entered_password)
-
-        if is_user_authenticated:
-            login(request, is_user_authenticated)
-            return redirect('dashboard')
-        else:
-            messages.error(request, 'Please Try Again there something went wrong with you login')
-
-    return render(request, 'user/login_page.html')
+class MyLogoutView(RedirectView):
+    def get(self, request):
+        logout(request)
+        return redirect('login')
 
 
-def user_logout_view(request):
-    logout(request)
+class DashboardView(LoginRequiredMixin, View):
+    template_name = 'user_dashboard/dashboard.html'
+    login_url = 'login/'
+    redirect_field_name = 'next'
 
-    return redirect('login')
+    def get(self, request):
+        current_user = request.user
+        context = {
+            'username': current_user.username.upper()
+        }
+
+        return render(request, self.template_name, context)
