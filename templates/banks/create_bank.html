@@ -7,7 +7,7 @@
         <h2>Create Bank</h2>
         {%endif%}
         {% csrf_token %}
-
+        
         {%for field in form%}
         <div class="form__group">
             <label for="amount">{{field.label}}</label>
