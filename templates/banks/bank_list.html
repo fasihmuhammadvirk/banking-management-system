@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="list-container">
+    
+    {% if bank_list %}
+    <div class="list">
+        <a class="btn btn--main" href="{% url 'dashboard' %}">Back</a>
+    </div>
+    
+    <table class="list-table">
+        <thead>
+        <tr>
+            <th>Bank Name</th>
+            <th>Branch Address</th>
+            <th>Is Islamic</th>
+            <th>Opened On</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for bank in bank_list%}
+        <tr>
+            <td>{{bank.name}}</td>
+            <td>{{bank.branch}}</td>
+            {%if bank.is_islamic %}
+            <td>Yes</td>
+            {%else%}
+            <td>No</td>
+            {% endif %}
+            <td>{{ bank.created_at }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {%else%}
+    <div class="list-message">
+        <div class="list">
+            <a class="btn btn--main" href="{% url 'dashboard' %}">Back</a>
+        </div>
+        <p>No Bank Information to Show</p>
+    </div>
+    {%endif%}
+
+</div>
+
+{% endblock %}
