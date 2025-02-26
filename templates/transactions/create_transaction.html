@@ -9,8 +9,9 @@
         <p>{{message}}</p>
     </div>
     {%endfor%}
-    {% endif%}
     
+    
+    {%else%}
     <div class="list">
         <h2>Make Your Transaction</h2>
         <form action="" method="post">
@@ -36,9 +37,11 @@
             
             
             <button class="btn btn--main">Confirm</button>
+            {% endif%}
             <a class="btn btn--main" href="{% url 'accounts-list' %}">Back</a>
         </form>
     </div>
+
 
 </div>
 

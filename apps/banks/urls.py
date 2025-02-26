@@ -1,8 +1,9 @@
 from django.urls import path
-from apps.banks.views import bank_list_view
+from apps.banks.views import BankListView, BankCreateView
 
 urlpatterns = [
 
-    path('', bank_list_view, name='banks-list'),
+    path('', BankListView.as_view(), name='banks-list'),
+    path('create', BankCreateView.as_view(), name='create-bank' )
 
 ]

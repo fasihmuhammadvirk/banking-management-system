@@ -5,12 +5,18 @@
     
     <div class="dashboard-heading">
         <h3>HELLO, {{username}}</h3>
-        <p>Here is a list of thins you can do</p>
     </div>
     
     <div class="dashboard-list">
-        <a class="btn btn--main" href="{% url 'banks-list' %}">Check list of all Banks and their details</a>
-        <a class="btn btn--main" href="{% url 'accounts-list' %}">Check list of your Accounts and their details</a>
+        <div class="d-list-container">
+            <h2>Bank</h2>
+            <a  href="{% url 'banks-list' %}">Click to View all Banks</a>
+            <a  href="{% url 'create-bank' %}">Click to Create a Bank</a>
+        </div>
+        <div class="d-list-container">
+            <h2>Account</h2>
+            <a  href="{% url 'accounts-list' %}">Click to View your Accounts</a>
+        </div>
     </div>
 
 </div>
