@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="login-conatiner">
+    <form class="login-form" action="" method="POST">
+        
+        {% csrf_token %}
+        
+        {% if messages %}
+        {% for message in messages %}
+        <p>{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {%for field in form%}
+        <div class="form__group">
+            <label for="username">{{field.label}}</label>
+            {{field}}
+        </div>
+        {%endfor%}
+        <button class="btn btn--main" type="submit">Login</button>
+    </form>
+
+</div>
+
+{% endblock %}

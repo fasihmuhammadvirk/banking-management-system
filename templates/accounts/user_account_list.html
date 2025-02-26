@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="list-container">
+    
+    {% if user_account_list %}
+    
+    <div class="list">
+        <a class="btn btn--main" href="{% url 'dashboard' %}">Back</a>
+    </div>
+    
+    <table class="list-table">
+        <thead>
+        <tr>
+            <th>User</th>
+            <th>Bank Name</th>
+            <th>Account Number</th>
+            <th>Balance</th>
+            <th>Tracsaction History</th>
+            <th>Make Tracsaction</th>
+        
+        </tr>
+        </thead>
+        <tbody>
+        {% for account in user_account_list%}
+
+        <tr>
+            <td>{{account.user}}</td>
+            <td>{{account.bank}}</td>
+            <td>{{account.account_number}}</td>
+            <td>{{account.balance}}</td>
+            
+            <td>
+                <a class="btn btn--main" href="{% url 'transactions-list' account_number=account.account_number %} ">Click
+                    Here</a>
+            </td>
+            
+            <td>
+                <a class="btn btn--main" href="{% url 'make-transaction' account_number=account.account_number %}">Click
+                    Here</a>
+            </td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    {% else %}
+    <div class="list">
+        <a class="btn btn--main" href="{% url 'dashboard' %}">Back</a>
+    </div>
+    <div class="list-message">
+        <p>No account details to show</p>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock %}

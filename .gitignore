@@ -2,6 +2,10 @@ __pycache__/
 .gitattributes
 .idea/
 venv/
-.env
+env/
 db.sqlite3
+.env
 .DS_Store
+__init__.py
+staticfiles/
+static/
